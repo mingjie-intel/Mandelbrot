@@ -12,7 +12,7 @@ from mandelbrot_demo.impl.visualization import pg_init
 from mandelbrot_demo.impl.visualization import pg_prep_next_frame
 from mandelbrot_demo.impl.visualization import pg_test_quit
 from mandelbrot_demo.impl.visualization import pg_update_fps
-
+import dpnp 
 
 class Fractal:
     def __init__(self, w, h, zoom, offset):
@@ -38,7 +38,12 @@ class Fractal:
         return old_offset
 
     def calculate(self):
-        self.values = mandelbrot(self.w, self.h, self.zoom, self.offset, self.values)
+        c1 = dpnp.asarray([0.0, 0.0, 0.2])
+        c2 = dpnp.asarray([1.0, 0.7, 0.9])
+        c3 = dpnp.asarray([0.6, 1.0, 0.2])
+        a = self.offset[0]
+        b = self.offset[1]
+        self.values = mandelbrot(c1, c2, c3, self.w, self.h, self.zoom, a, b,  self.values)
         self.need_recalculate = False
 
     def update(self):
@@ -86,6 +91,7 @@ def main():
     t2 = time.time()
     pg_finalize()
     print("Avg.fps:", frames / (t2 - t1))
+    print("time= ", t2-t1)
 
 
 if __name__ == "__main__":

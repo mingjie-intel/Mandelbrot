@@ -15,7 +15,8 @@ frames = parse_args().max_frames
 if frames > 0:
     N_FRAMES = frames
 else:
-    N_FRAMES = 1000000
+    N_FRAMES  = 1000000
+    #N_FRAMES = 1000000
 
 OFFSET_X = 1.4 * DISPLAY_W // 2
 OFFSET_Y = DISPLAY_H // 2

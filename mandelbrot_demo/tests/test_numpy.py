@@ -12,4 +12,9 @@ def test_numpy():
 
     colors = mandelbrot(w, h, zoom, offset, colors)
     s = colors.astype(np.int32).sum()
+    print("s=",s)
     assert s == 2055
+
+
+test_numpy()
+print("done")

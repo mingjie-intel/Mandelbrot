@@ -12,4 +12,9 @@ def test_numba():
 
     colors = mandelbrot(w, h, zoom, offset, colors)
     s = colors.astype(np.int32).sum()
+    print("s=",s)
     assert s == 1405
+
+
+test_numba()
+print("done.")
