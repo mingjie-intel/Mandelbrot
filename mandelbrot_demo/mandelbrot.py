@@ -13,7 +13,7 @@ from mandelbrot_demo.impl.visualization import pg_prep_next_frame
 from mandelbrot_demo.impl.visualization import pg_test_quit
 from mandelbrot_demo.impl.visualization import pg_update_fps
 import dpnp 
-
+import numpy as np
 class Fractal:
     def __init__(self, w, h, zoom, offset):
         self.w = w
@@ -38,11 +38,11 @@ class Fractal:
         return old_offset
 
     def calculate(self):
-        c1 = dpnp.asarray([0.0, 0.0, 0.2])
-        c2 = dpnp.asarray([1.0, 0.7, 0.9])
-        c3 = dpnp.asarray([0.6, 1.0, 0.2])
-        a = self.offset[0]
-        b = self.offset[1]
+        c1 = dpnp.asarray([np.float32(0.0), np.float32(0.0), np.float32(0.2)])
+        c2 = dpnp.asarray([np.float32(1.0), np.float32(0.7), np.float32(0.9)])
+        c3 = dpnp.asarray([np.float32(0.6), np.float32(1.0), np.float32(0.2)])
+        a = self.offset[np.int32(0)]
+        b = self.offset[np.int32(1)]
         self.values = mandelbrot(c1, c2, c3, self.w, self.h, self.zoom, a, b,  self.values)
         self.need_recalculate = False
 
@@ -55,7 +55,7 @@ def main():
     ds, clk = pg_init()
 
     zoom = ZOOM
-    scale = 1.01
+    scale = np.float32(1.01)
     incr = -5.0
     offset_x = OFFSET[0]
     offset_y = OFFSET[1]

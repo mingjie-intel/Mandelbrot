@@ -1,1 +1,2 @@
-MAX_ITER = 30
+import numpy as np
+MAX_ITER = np.int32(30)

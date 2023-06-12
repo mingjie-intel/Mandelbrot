@@ -2,26 +2,27 @@ import os
 
 from mandelbrot_demo.impl.arg_parser import parse_args
 from mandelbrot_demo.impl.impl_versioner import asnumpy
+import numpy as np
 
 GUI = parse_args().gui
 
 if GUI:
     import pygame as pg
 
-DISPLAY_RES = DISPLAY_W, DISPLAY_H = 1024, 800
-FPS = 60
+DISPLAY_RES = DISPLAY_W, DISPLAY_H = np.int32(1024), np.int32(800)
+FPS = np.int32(60)
 
-frames = parse_args().max_frames
-if frames > 0:
+frames = np.int32(parse_args().max_frames)
+if frames > np.int32(0):
     N_FRAMES = frames
 else:
-    N_FRAMES  = 1000000
+    N_FRAMES  = np.int32(10)
     #N_FRAMES = 1000000
 
-OFFSET_X = 1.4 * DISPLAY_W // 2
-OFFSET_Y = DISPLAY_H // 2
+OFFSET_X = np.float32(1.4) * np.float32(DISPLAY_W // np.int32(2))
+OFFSET_Y = np.float32(DISPLAY_H // np.int32(2))
 OFFSET = (OFFSET_X, OFFSET_Y)
-ZOOM = 2.5 / DISPLAY_H
+ZOOM = np.float32(np.float32(2.5) / DISPLAY_H)
 
 if GUI:
 
@@ -55,7 +56,7 @@ if GUI:
     def pg_prep_next_frame(frames, clk):
         pg.display.flip()
         clk.tick(FPS)
-        frames += 1
+        frames += np.int32(1)
         return frames, frames < N_FRAMES
 
     def pg_finalize():
@@ -76,7 +77,7 @@ else:
         pass
 
     def pg_prep_next_frame(frames, clk):
-        frames += 1
+        frames += np.int32(1)
         return frames, frames < N_FRAMES
 
     def pg_finalize():
